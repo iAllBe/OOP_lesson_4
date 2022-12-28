@@ -1,4 +1,5 @@
-﻿import java.util.Calendar;
+﻿import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class Task {
     static Integer currentId = 1;
@@ -25,6 +26,13 @@ public class Task {
         } else {
             this.importance = Importance.low;
         }
+
+        
+        SimpleDateFormat formatter = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss");
+        String strDate = formatter.format(dateCreation.getTime());
+        String strDateEnd = formatter.format(deadLine.getTime());
+
+        ExportCSV.dataLines.add(new String[] { Integer.toString(id), taskName, fullName, strDate, strDateEnd, Integer.toString(importance) });
     }
 
     public Integer getId() {
@@ -45,7 +53,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Задача №:" + id + " - "  + taskName + ", от: " + fullName + ", дата создания :" + dateCreation.getTime()
+        return "Задача №:" + id + " - " + taskName + ", от: " + fullName + ", дата создания :" + dateCreation.getTime()
                 + ", срок окончания:"
                 + deadLine.getTime() + ", важность: " + importance;
     }
